@@ -35,7 +35,7 @@ function showSerwers(array) {
                      <span></span>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <ul>
+                    <ul id="${el.id}">
 
                   </ul>
                     </div>
@@ -67,9 +67,11 @@ function addClass() {
 }
 
 function checkBtn() {
-    let btn = $(".dropdown button");
+    let $btn = $(".dropdown button");
+console.log('button isrtnieje ?', $btn);
 
-    btn.click(function () {
+
+    $btn.click(function () {
 
         let $test = $(this).parents(".servers-list-item")
 
@@ -94,15 +96,56 @@ function checkBtn() {
 }
 
 function switchStatus() {
-    let $btn = $(".dropdown button ul .turn-off");
+    let $offLine = $(".turn-off");
+    let $onLine = $(".turn-on");
 
-    $btn.click(function() {
-        console.log('działa',  $(this))
+    $onLine.click(function() {
+        console.log('działa on',  $(this))
+})
+
+    $offLine.click(function() {
+        console.log('działa off',  $(this))
+
+        let $id = $(this).parents("ul").attr('id')
+
+        $.ajax({
+            url: "http://localhost:4454/servers/" + $id + "/off",
+            method: "put",
+            dataType: "json",
+            contentType: "application/json",
+            data: {
+                status: "OFFLINE",
+            }
+        })
+        .done(res => { //readuję na odpowiedź - o tym poniżej
+            console.log(res);
+        });
+
     })
+
+    // $onLine.click(function() {
+    //     console.log('działa on',  $(this))
+
+    //     $.ajax({
+    //         url: "http://localhost:4454/servers/2/on", //gdzie się łączymy
+    //         method: "put", //typ połączenia, domyślnie get
+    //         dataType: "json", //typ danych jakich oczekujemy w odpowiedzi
+    //         contentType: "application/json", //typ wysyłanych danych
+    //         data: { //dane do wysyłki
+    //             status: "ONLINE",
+    //         }
+    //     })
+    //     .done(res => { //readuję na odpowiedź - o tym poniżej
+    //         console.log(res);
+    //     });
+
+
+
+
+    // })
 
 }
 
 
 
 console.log($().jquery)
-console.log('dzoałam')

@@ -30,13 +30,20 @@ In `./ui` run:
 npm install
 ```
 
-### Run
+## Scripts
 
-In `./ui` run:
+#### Run the local webpack-dev-server with livereload and autocompile on [http://localhost:8080/](http://localhost:8080/)
 
-```shell
-npm dev
+```sh
+$ npm run dev
 ```
+
+#### Build the current application for deployment
+
+```sh
+$ npm run build
+```
+
 
 ## API
 
@@ -63,7 +70,7 @@ interface Server {
 
 ### Requirements
 
-Our API was created using Node.js v10.6.0. Other versions may or may not work correctly.
+API was created using Node.js v10.6.0. Other versions may or may not work correctly.
 
 ### Installation
 
