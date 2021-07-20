@@ -2,6 +2,8 @@ import 'bootstrap'
 import './scss/index.scss'
 
 
+
+
 $.ajax({
         url: "http://localhost:4454/servers",
         method: "get",
@@ -48,7 +50,6 @@ function showSerwers(array) {
     addClass();
     checkBtn();
     switchStatus();
-
 }
 
 function addClass() {
@@ -68,80 +69,63 @@ function addClass() {
 
 function checkBtn() {
     let $btn = $(".dropdown button");
-console.log('button isrtnieje ?', $btn);
+    console.log('button isrtnieje ?', $btn);
 
 
     $btn.click(function () {
 
         let $test = $(this).parents(".servers-list-item")
-
         if ($test.find(".status p").text() === "ONLINE") {
             let $list = $(".dropdown-menu ul")
             $list.find("li").remove();
-
             $list.append(
                 `<li class="turn-off">Turn off</li>
                  <li class="reboot">Reboot</li>`
             );
             switchStatus();
+        }
 
-        } else if ($test.find(".status p").text() === "OFFLINE") {
+        if ($test.find(".status p").text() === "OFFLINE") {
             let $list = $(".dropdown-menu ul")
             $list.find("li").remove();
             $list.append(`<li class="turn-on">Turn on</li>`);
+            switchStatus();
         }
     })
-
-
 }
 
 function switchStatus() {
     let $offLine = $(".turn-off");
     let $onLine = $(".dropdown-menu .turn-on");
 
-    $onLine.click(function() {
-        console.log('działa on',  $(this))
-})
+    $offLine.click(function () {
+        console.log('działa off', $(this));
+        let $id = $(this).parents("ul").attr('id');
+        ajaxPutSend($id, "off", "OFFLINE");
+    })
 
-    $offLine.click(function() {
-        console.log('działa off',  $(this))
+    $onLine.click(function () {
+        console.log('działa on', $(this));
+        let $id = $(this).parents("ul").attr('id');
+        ajaxPutSend($id, "on", "ONLINE");
+    })
 
-        let $id = $(this).parents("ul").attr('id')
+}
 
-        $.ajax({
-            url: "http://localhost:4454/servers/" + $id + "/off",
+function ajaxPutSend(id, status, statusS) {
+
+    $.ajax({
+            url: "http://localhost:4454/servers/" + id + "/" + status,
             method: "put",
             dataType: "json",
             contentType: "application/json",
             data: {
-                status: "OFFLINE",
+                status: statusS,
             }
         })
         .done(res => {
             console.log(res);
         });
-
-    })
-
-    // $onLine.click(function() {
-    //     console.log('działa on',  $(this))
-
-    //     $.ajax({
-    //         url: "http://localhost:4454/servers/2/on",
-    //         method: "put",
-    //         dataType: "json",
-    //         contentType: "application/json",
-    //         data: {
-    //             status: "ONLINE",
-    //         }
-    //     })
-    //     .done(res => {
-    //         console.log(res);
-    //     });
-    // })
-
-}
-
-
+};
 
 console.log($().jquery)
