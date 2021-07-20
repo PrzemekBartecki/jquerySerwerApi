@@ -97,7 +97,7 @@ console.log('button isrtnieje ?', $btn);
 
 function switchStatus() {
     let $offLine = $(".turn-off");
-    let $onLine = $(".turn-on");
+    let $onLine = $(".dropdown-menu .turn-on");
 
     $onLine.click(function() {
         console.log('działa on',  $(this))
@@ -117,7 +117,7 @@ function switchStatus() {
                 status: "OFFLINE",
             }
         })
-        .done(res => { //readuję na odpowiedź - o tym poniżej
+        .done(res => {
             console.log(res);
         });
 
@@ -127,21 +127,17 @@ function switchStatus() {
     //     console.log('działa on',  $(this))
 
     //     $.ajax({
-    //         url: "http://localhost:4454/servers/2/on", //gdzie się łączymy
-    //         method: "put", //typ połączenia, domyślnie get
-    //         dataType: "json", //typ danych jakich oczekujemy w odpowiedzi
-    //         contentType: "application/json", //typ wysyłanych danych
-    //         data: { //dane do wysyłki
+    //         url: "http://localhost:4454/servers/2/on",
+    //         method: "put",
+    //         dataType: "json",
+    //         contentType: "application/json",
+    //         data: {
     //             status: "ONLINE",
     //         }
     //     })
-    //     .done(res => { //readuję na odpowiedź - o tym poniżej
+    //     .done(res => {
     //         console.log(res);
     //     });
-
-
-
-
     // })
 
 }
