@@ -159,8 +159,13 @@ body {
                     &:hover {
                         background-color: $color-gray;
                     }
+                    button {
+                        background: none;
+                        border: 0;
+                    }
                 }
             }
+
         }
 
 
